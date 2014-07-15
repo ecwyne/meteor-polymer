@@ -1,0 +1,7 @@
+{
+  "name": "google-map",
+  "private": true,
+  "dependencies": {
+    "google-apis": "PolymerLabs/google-apis#master"
+  }
+}

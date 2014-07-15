@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sortable Table using Polymer Web Components</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<script src="../../platform/platform.js"></script>
+	<link rel="import" href="../sortable-table.html">
+	<link rel="import" href="fruit-icon.html">
+	<link rel="import" href="index-links.html">
+	<style>
+		sortable-table { width: 100% }
+	</style>
+</head>
+<body unresolved>
+
+	<h2>Row Templates</h2>
+
+	Using <code>rowTemplate</code> to populate rows, should work when a cell <code>formula</code> is specified, and all normal row selection functionality should continue to operate (clicks and checkboxes).<br>
+	Row templates allow live 2-way data-binding between cells, using individual <code>cellTemplate</code>s can't usually do this.<br>
+	Notice the <em>Formula Total</em> doesn't refresh instantly, but the <em>Template Total</em> does.
+	<p>
+
+	<template id="example" bind>
+		<sortable-table data="{{data}}" columns="{{columns}}" rowTemplate="simpleRowTemplate" rowSelection="{{rowSelection}}" multiSelect="{{multiSelect}}" checkbox="{{checkbox}}">
+			<template id="simpleRowTemplate">
+				<td style="text-align:left;font-weight:bold">
+					<template bind="{{record.fields.fruit}}">
+						<fruit-icon fruit="{{value}}"></fruit-icon>
+						{{value}}
+					</template>
+				</td>
+				<td style="width:10%;"><input type="number" value="{{record.row.alice}}" style="width:100%;text-align:right;font-size:larger;"></td>
+				<td style="width:10%;"><input type="number" value="{{record.row.bill}}" style="width:100%;text-align:right;font-size:larger;"></td>
+				<td style="width:10%;"><input type="number" value="{{record.row.casey}}" style="width:100%;text-align:right;font-size:larger;"></td>
+				<td><b>{{+record.row.alice + +record.row.bill + +record.row.casey}}</b></td>
+				<td><b>{{record.fields.total.value}}</b></td>
+			</template>
+		</sortable-table>
+		<p>
+		<strong>Enabled Interactions:</strong><br>
+		<input type="checkbox" checked="{{rowSelection}}">rowSelection<br>
+		<input type="checkbox" checked="{{multiSelect}}">multiSelect<br>
+		<input type="checkbox" checked="{{checkbox}}">checkbox<br>
+	</template>
+
+	<script>
+	var fruits = [
+		{fruit: 'apple', alice: 4, bill: 10, casey: 2 },
+		{fruit: 'banana', alice: 0, bill: 4, casey: 0 },
+		{fruit: 'grape', alice: 2, bill: 3, casey: 5 },
+		{fruit: 'pear', alice: 4, bill: 2, casey: 8 },
+		{fruit: 'strawberry', alice: 0, bill: 14, casey: 0 }
+	];
+
+	var columns = [
+		{name:'fruit', title:'Fruit' },
+		{name:'alice', title:'Alice' },
+		{name:'bill', title:'Bill' },
+		{name:'casey', title:'Casey' },
+		{name:'live', title:'Template Total', formula: function(row){ return row.alice*1 + row.bill*1 + row.casey*1; }},
+		{name:'total', title:'Formula Total', formula: function(row){ return row.alice*1 + row.bill*1 + row.casey*1; }}
+	];
+
+	window.addEventListener('polymer-ready', function(){
+		var model = {
+			data: fruits,
+			columns: columns,
+			rowSelection: true,
+			multiSelect: false,
+			checkbox: true
+		};
+		document.getElementById('example').model = model;
+	});
+	</script>
+
+	<index-links page="row-templates.html"></index-links>
+</body>
+</html>

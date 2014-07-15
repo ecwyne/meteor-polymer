@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sortable Table using Polymer Web Components</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<script src="../../platform/platform.js"></script>
+	<link rel="import" href="../sortable-table.html">
+	<link rel="import" href="fruit-icon.html">
+	<link rel="import" href="index-links.html">
+	<style>
+		sortable-table { width: 800px; }
+	</style>
+</head>
+<body unresolved>
+
+	<h2>Dynamic columns</h2>
+	Adding, removing, and reordering <code>columns</code> should not break sort.
+	Changing a `cellTemplate`,`headerTemplate`, or `footerTemplate` after load should work correctly.
+
+	<p>
+
+	<template id="example" bind>
+		<sortable-table data="{{data}}" columns="{{columns}}">
+			<template id="fruitsTemplateIcon">
+				<td style="padding:0;width:48px;text-align:center;">
+					<fruit-icon fruit="{{value}}"></fruit>
+				</td>
+			</template>
+
+			<template id="fruitsTemplateText">
+				<td style="font-size:20px;line-height:20px;">
+					<strong>{{value}}</strong>
+				</td>
+			</template>
+		</sortable-table>
+	</template>
+
+	<p>
+
+	<input type="button" onclick="toggleTemplate(this)" value="Use Text Template">
+	
+	<input type="button" onclick="toggleVisibility(this)" value="Hide Columns">
+	
+	<input type="button" onclick="toggleReorder(this)" value="Reorder Columns">
+	
+	<script>
+	var fruits = [
+		{fruit: 'apple', alice: 4, bill: 10, casey: 2, average: 5.3, total: 16 },
+		{fruit: 'banana', alice: 0, bill: 4, casey: 0, average: 1.3, total: 4 },
+		{fruit: 'grape', alice: 2, bill: 3, casey: 5, average: 3.3, total: 10 },
+		{fruit: 'pear', alice: 4, bill: 2, casey: 8, average: 4.6, total: 14 },
+		{fruit: 'strawberry', alice: 0, bill: 14, casey: 1, average: 5, total: 15 }
+	];
+
+	var columns = [
+		{name:'fruit', cellTemplate: 'fruitsTemplateIcon'},
+		{name:'alice'},
+		{name:'bill'},
+		{name:'casey'},
+		{name:'average'},
+		{name:'total'}
+	];
+
+	function toggleTemplate(b){
+		//change template used for fruit
+		if(columns[0].cellTemplate == 'fruitsTemplateIcon'){
+			columns[0].cellTemplate = 'fruitsTemplateText';
+			b.value = 'Use Icon Template';
+		}else{
+			columns[0].cellTemplate = 'fruitsTemplateIcon';
+			b.value = 'Use Text Template';
+		}
+	}
+
+	function toggleVisibility(b){
+		//show/hide 3 person columns
+		if(columns.length==6){
+			//remove
+			columns.splice(1,3);
+			b.value = 'Show Columns';
+		}else{
+			//insert
+			columns.splice(1,0,{name:'alice'},{name:'bill'},{name:'casey'});
+			b.value = 'Hide Columns';
+		}
+	}
+
+	function toggleReorder(b){
+		//swap last 2 columns (total & average)
+		var l = columns.length;
+		var secondLast = columns[l - 2];
+		columns.splice(l - 2, 1);
+		columns.splice(l - 1, 0, secondLast);
+	}
+
+	window.addEventListener('polymer-ready', function(){
+		var model = {
+			data: fruits,
+			columns: columns
+		};
+		document.getElementById('example').model = model;
+	});
+	</script>
+
+	<index-links page="dynamic-columns.html"></index-links>
+</body>
+</html>

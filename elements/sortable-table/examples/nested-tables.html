@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sortable Table using Polymer Web Components</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<script src="../../platform/platform.js"></script>
+	<link rel="import" href="../sortable-table.html">
+	<link rel="import" href="fruit-icon.html">
+	<link rel="import" href="index-links.html">
+	<style>
+		sortable-table { width: 100% }
+	</style>
+</head>
+<body unresolved>
+
+	<h2>Nested Tables and Hierarchical JSON</h2>
+	In lieu of built in groupby functionality, it should be possible to nest sortable tables into other sortable tables.<br/>
+	The <code>columns</code> contains a nested <code>columns</code> property, and we can link all nested table's sort field by storing it
+	in the nested <code>columns</code>.<br>
+	<em style="color:red">Very inconsistent behaviour across browsers, strange refreshing bugs.</em>
+	<p>
+
+	<template id="example" bind>
+		<sortable-table data="{{data}}" columns="{{columns}}">
+			<!-- nested table as a cell -->
+			<template id="nestedTable">
+				<td style="padding:0;">
+					<sortable-table style="width:100%" data="{{row[column.name]}}" columns="{{column.columns}}" sortColumn="{{column.sortColumn}}" sortDescending="{{column.sortDescending}}">
+
+						<!-- template to convert int to day of week -->
+						<template id="dayTable">
+							<td style="width:100px">
+								<template if="{{value==1}}">Monday</template>
+								<template if="{{value==2}}">Tuesday</template>
+								<template if="{{value==3}}">Wednesday</template>
+								<template if="{{value==4}}">Wednesday</template>
+								<template if="{{value==5}}">Friday</template>
+								<template if="{{value==6}}">Saturday</template>
+								<template if="{{value==7}}">Sunday</template>
+							</td>
+						</template>
+
+						<!-- template to print fruit icon in header -->
+						<template id="fruitsTemplate">
+							<th style="{{sortColumn==column.name && sortDescending ? 'text-decoration:overline;' : ''}}
+							{{sortColumn==column.name && !sortDescending ? 'text-decoration:underline;' : ''}}">
+								<fruit-icon fruit="{{column.name}}"></fruit-icon>
+								{{column.name}}
+							</th>
+						</template>
+
+						<!-- text template for footer -->
+						<template id="totalTemplate">
+							<td class="ssDatatableHeader">
+								Week
+							</td>
+						</template>
+
+						<!-- sum template for footer -->
+						<template id="sumTemplate">
+							<td class="ssDatatableHeader" style="text-align:right;">
+								{{values | sum}}
+							</td>
+						</template>
+					</sortable-table>
+				</td>
+			</template>
+
+			<!-- nested table as a footer -->
+			<template id="nestedFooterTable">
+				<td style="padding:0;">
+					<sortable-table style="width:100%" data="{{rowValues | cube}}" columns="{{column.columns}}" sortColumn="{{column.sortColumn}}" sortDescending="{{column.sortDescending}}">
+						<!-- template to convert int to day of week -->
+						<template id="dayTable">
+							<td style="width:100px">
+								<template if="{{value==1}}">Monday</template>
+								<template if="{{value==2}}">Tuesday</template>
+								<template if="{{value==3}}">Wednesday</template>
+								<template if="{{value==4}}">Wednesday</template>
+								<template if="{{value==5}}">Friday</template>
+								<template if="{{value==6}}">Saturday</template>
+								<template if="{{value==7}}">Sunday</template>
+							</td>
+						</template>
+
+						<!-- text template for footer -->
+						<template id="totalTemplate">
+							<td class="ssDatatableHeader">
+								Week
+							</td>
+						</template>
+
+						<!-- sum template for footer -->
+						<template id="sumTemplate">
+							<td class="ssDatatableHeader" style="text-align:right;">
+								{{values | sum}}
+							</td>
+						</template>
+					</sortable-table>
+				</td>
+			</template>
+		</sortable-table>
+	</template>
+
+	<script>
+	var fruits = [
+		{
+			worker: 'alice',
+			unitsSold : [
+				{ day: 1, apple: 1, pear: 1, strawberry: 2, grape: 4, banana: 2 }, 
+				{ day: 2, apple: 8, pear: 5, strawberry: 2, grape: 5, banana: 1 }, 
+				{ day: 3, apple: 1, pear: 0, strawberry: 0, grape: 2, banana: 3 },
+				{ day: 4, apple: 6, pear: 3, strawberry: 0, grape: 3, banana: 3 },
+				{ day: 5, apple: 0, pear: 0, strawberry: 8, grape: 0, banana: 6 }
+			]
+		},{
+			worker: 'bill',
+			unitsSold : [
+				{ day: 1, apple: 4, pear: 3, strawberry: 4, grape: 1, banana: 3 },
+				{ day: 2, apple: 7, pear: 2, strawberry: 9, grape: 3, banana: 2 },
+				{ day: 3, apple: 0, pear: 3, strawberry: 0, grape: 4, banana: 2 },
+				{ day: 4, apple: 1, pear: 2, strawberry: 8, grape: 1, banana: 1 },
+				{ day: 5, apple: 2, pear: 4, strawberry: 7, grape: 1, banana: 9 }
+			]
+		},{
+			worker: 'casey',
+			unitsSold : [
+				{ day: 1, apple: 8, pear: 2, strawberry: 5, grape: 3, banana: 7 },
+				{ day: 2, apple: 1, pear: 4, strawberry: 3, grape: 9, banana: 4 },
+				{ day: 3, apple: 2, pear: 6, strawberry: 0, grape: 0, banana: 3 },
+				{ day: 4, apple: 4, pear: 2, strawberry: 7, grape: 7, banana: 3 },
+				{ day: 5, apple: 2, pear: 3, strawberry: 4, grape: 2, banana: 1 }
+			]
+		}
+	];
+
+	var columns = [
+		{
+			name: 'worker',
+			title: 'Worker'
+		},{
+			name:'unitsSold',
+			title:'Total Units Sold This Week',
+			cellTemplate: 'nestedTable',
+			columns: [
+				{ name:'day', title:'Day', cellTemplate:'dayTable', footerTemplate: 'totalTemplate'},
+				{ name:'apple', headerTemplate: 'fruitsTemplate', footerTemplate: 'sumTemplate' },
+				{ name:'banana', headerTemplate: 'fruitsTemplate', footerTemplate: 'sumTemplate' },
+				{ name:'grape', headerTemplate: 'fruitsTemplate', footerTemplate: 'sumTemplate' },
+				{ name:'pear', headerTemplate: 'fruitsTemplate', footerTemplate: 'sumTemplate' },
+				{ name:'strawberry', headerTemplate: 'fruitsTemplate', footerTemplate: 'sumTemplate' },
+				{ name:'total', title: 'Total', formula: function(row){ return row.apple + row.pear + row.strawberry + row.grape + row.banana }, footerTemplate: 'sumTemplate' }
+			],
+			formula: function(row){
+				var s = 0;
+				//sum over all the worker's sales
+				for(var i=0;i<row.unitsSold.length;i++){
+					var r = row.unitsSold[i];
+					s += (r.apple + r.pear + r.strawberry + r.grape + r.banana);
+				}
+				return s;
+			},
+			footerTemplate: 'nestedFooterTable'
+		}
+	];
+
+	window.addEventListener('polymer-ready', function(){
+		/* Group by day, for totals */
+		PolymerExpressions.prototype.cube = function(arr) {
+			var c = []
+			for(var i=0;i<arr.length;i++){
+				//d should be an array of unique days
+				var d = arr[i];
+				for(var j=0;j<d.length;j++){
+					//find day record in c
+					var s = null;
+					for(var k=0;k<c.length;k++){
+						if(c[k].day==d[j].day){
+							s = c[k];
+							break;
+						}
+					}
+					if(!s){
+						s = { day: d[j].day };
+						c.push(s);
+					}
+					//loop through properties and add them to s
+					//makes assumption that properties are the same, none missing
+					var o = d[j];
+					for (var key in o) {
+						if (o.hasOwnProperty(key) && key!='day') {
+							s[key] = (s[key] || 0) + o[key];
+						}
+					}
+				}
+			}
+			return c;
+		};
+		var model = {
+			data: fruits,
+			columns: columns
+		};
+		document.getElementById('example').model = model;
+	});
+	</script>
+
+	<index-links page="nested-tables.html"></index-links>
+</body>
+</html>
