@@ -12,7 +12,8 @@ To install:
 2. Rename the folder from `meteor-polymer` to `polymer`
 3. Copy the `elements` folder from the package into the `public` subdirectory of your project
 4. Update `import.html` to include any web components you are using in your project
-5. Use the web components in your project and watch the magic happen
+5. Depending on your meteor build, you may need to `meteor add polymer`. Thanks [@frozeman](http://stackoverflow.com/a/24870472/2416471)
+6. Use the web components in your project and watch the magic happen
 
 ```
 /
