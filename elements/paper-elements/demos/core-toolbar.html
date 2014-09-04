@@ -10,10 +10,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <html>
 <head>
 
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
   <title>core-toolbar</title>
 
   <script src="../../platform/platform.js"></script>
 
+  <link rel="import" href="../../font-roboto/roboto.html">
   <link rel="import" href="../../core-icons/core-icons.html">
   <link rel="import" href="../../core-toolbar/core-toolbar.html">
   <link rel="import" href="../../paper-icon-button/paper-icon-button.html">
@@ -21,7 +24,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <style>
 
     body {
-      font-family: sans-serif;
+      font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+      margin: 0;
+      padding: 24px;
     }
 
     core-toolbar {
@@ -36,7 +41,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <core-toolbar style="background: #4285f4;">
     <paper-icon-button icon="menu"></paper-icon-button>
-    <span flex>Toolbar</span>
+    <span flex>Title</span>
     <paper-icon-button icon="refresh"></paper-icon-button>
     <paper-icon-button icon="more-vert"></paper-icon-button>
   </core-toolbar>
@@ -45,7 +50,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <core-toolbar style="background: #3f51b5;">
     <paper-icon-button icon="menu"></paper-icon-button>
-    <span flex>Toolbar</span>
+    <span flex>Title</span>
     <paper-icon-button icon="refresh"></paper-icon-button>
     <paper-icon-button icon="more-vert"></paper-icon-button>
   </core-toolbar>
@@ -54,7 +59,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <core-toolbar class="tall" style="background: #0f9d58;">
     <paper-icon-button icon="menu"></paper-icon-button>
-    <span flex>Toolbar: tall</span>
+    <span flex>Title</span>
     <paper-icon-button icon="refresh"></paper-icon-button>
     <paper-icon-button icon="more-vert"></paper-icon-button>
   </core-toolbar>
@@ -63,7 +68,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <core-toolbar class="tall" style="background: #ffeb3b; color: #333; fill: #333;">
     <paper-icon-button icon="menu" class="bottom"></paper-icon-button>
-    <span flex class="bottom">Toolbar: tall with actions pin to the bottom</span>
+    <span flex class="bottom">Title</span>
     <paper-icon-button icon="refresh" class="bottom"></paper-icon-button>
     <paper-icon-button icon="more-vert" class="bottom"></paper-icon-button>
   </core-toolbar>
@@ -75,7 +80,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <span flex></span>
     <paper-icon-button icon="refresh"></paper-icon-button>
     <paper-icon-button icon="more-vert"></paper-icon-button>
-    <span class="bottom indent">Toolbar: medium tall with label aligns to the bottom</span>
+    <span class="bottom indent">Title</span>
   </core-toolbar>
 
   <br>
@@ -85,8 +90,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div flex></div>
     <paper-icon-button icon="refresh"></paper-icon-button>
     <paper-icon-button icon="more-vert"></paper-icon-button>
-    <div flex class="middle indent">Toolbar: label aligns to the middle</div>
-    <div flex class="bottom indent" style="font-size: 18px;">some stuffs align to the bottom</div>
+    <div flex class="middle indent">Title</div>
+    <div flex class="bottom indent" style="font-size: 18px;">Title2</div>
   </core-toolbar>
   
 </body>

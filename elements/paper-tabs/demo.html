@@ -1,8 +1,17 @@
+<!--
+    @license
+    Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+    This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+    The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+    The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+    Code distributed by Google as part of the polymer project is also
+    subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
 <!doctype html>
 <html>
 <head>
   <title>paper-tabs</title>
-  
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
   <script src="../platform/platform.js"></script>
   
   <link rel="import" href="../core-icons/core-icons.html">
@@ -15,7 +24,8 @@
   
     body {
       font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
-      padding: 20px;
+      margin: 0;
+      padding: 24px;
       color: #333;
       -webkit-user-select: none;
       -moz-user-select: none;
@@ -53,12 +63,17 @@
       color: #00bcd4;
     }
     
+    h3 {
+      font-size: 16px;
+      font-weight: 400;
+    }
+    
   </style>
   
 </head>
 <body unresolved>
 
-  <h3>No ink effect and no sliding bar</h3>
+  <h3>A. No ink effect and no sliding bar</h3>
   
   <paper-tabs selected="0" noink nobar>
   
@@ -71,7 +86,7 @@
   <br>
   <br>
 
-  <h3>The bar slides to the selected tab</h3>
+  <h3>B. The bar slides to the selected tab</h3>
   
   <paper-tabs selected="0" noink>
   
@@ -84,7 +99,7 @@
   <br>
   <br>
   
-  <h3>Inky Tabs</h3>
+  <h3>C. Inky Tabs</h3>
   
   <paper-tabs selected="0">
   
@@ -115,14 +130,13 @@
     <paper-icon-button icon="search"></paper-icon-button>
     <paper-icon-button icon="more-vert"></paper-icon-button>
     
-    <div class="bottom fit" horizontal center-justified end layout>
+    <div class="bottom fit" horizontal layout>
     
       <paper-tabs selected="0" flex style="max-width: 600px;">
     
         <paper-tab>ITEM ONE</paper-tab>
         <paper-tab>ITEM TWO</paper-tab>
         <paper-tab>ITEM THREE</paper-tab>
-        <paper-tab>ITEM FOUR</paper-tab>
         
       </paper-tabs>
       

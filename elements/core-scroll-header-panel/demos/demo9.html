@@ -20,16 +20,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="import" href="../core-scroll-header-panel.html">
   <link rel="import" href="lorem-ipsum.html">
   <link rel="import" href="../../core-icons/core-icons.html">
-  <link rel="import" href="../../core-icons/iconsets/av-icons.html">
+  <link rel="import" href="../../core-icons/av-icons.html">
   <link rel="import" href="../../core-toolbar/core-toolbar.html">
   <link rel="import" href="../../core-field/core-field.html">
   <link rel="import" href="../../core-input/core-input.html">
 
   <style shim-shadowdom>
 
+    html, body {
+      height: 100%;
+    }
+
     body {
+      margin: 0;
       font-family: sans-serif;
-      background-color: #ededed;
       color: #333;
     }
 
@@ -55,6 +59,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       background-color: #fff;
       border: 1px solid #eee;
       box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    }
+
+    core-toolbar {
+      background-color: transparent;
     }
     
     .content {
