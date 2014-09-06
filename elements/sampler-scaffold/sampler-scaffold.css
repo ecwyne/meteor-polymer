@@ -7,44 +7,66 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-#drawerPanel {
-  background-color: #fafafa;
+#drawerPanel, [drawer] {
+  background-color: #eee;
 }
 
 [drawer] {
-  background-color: #fff;
-  box-shadow: 1px 0 1px rgba(0, 0, 0, 0.1);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 [main] {
   height: 100%;
 }
 
-[drawer] core-toolbar {
-  background-color: #4F7DC9;
+core-toolbar {
+  background-color: #5264ae;
   color: #fff;
+  font-size: 20px;
+  font-weight: 400;
 }
 
-[main] core-toolbar {
-  background-color: #526E9C;
-  color: #fff;
+core-toolbar.medium-tall {
+  height: 144px;
 }
 
-/* adjust drawerPanel drawer's width instead of using the default from core-drawer-panel */
-#drawerPanel::shadow #drawer {
-  width: 260px;
+core-toolbar::shadow #bottomBar {
+  height: 80px;
 }
 
-#drawerPanel::shadow #main {
-  left: 260px;
+.main-label {
+  padding: 0 0 20px 60px;
+}
+
+/* menu */
+core-menu#menu {
+  padding: 8px 0;
+  margin: 0;
+}
+
+/* menu item */
+polyfill-next-selector { content: 'core-menu#menu core-item'; }
+::content core-item, ::content core-submenu::shadow core-item {
+  height: 56px;
+  padding-left: 60px;
+  font-size: 15px;
+  color: #444;
+  font-weight: normal !important;
+}
+
+polyfill-next-selector { content: 'core-menu#menu core-item.core-selected'; }
+::content core-item.core-selected {
+  background-color: #dedede;
 }
 
 /* card */
 #card {
   display: block;
-  margin: 128px 100px 60px;
+  margin: 64px 120px 60px 5px;
   background-color: #fff;
-  box-shadow: rgba(0, 0, 0, 0.14902) 0px 2px 4px, rgba(0, 0, 0, 0.14902) 0px 0px 3px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  border-radius: 2px;
   overflow: hidden;
 }
 
@@ -53,20 +75,50 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 }
 
 #card.move-up {
-  transition: -webkit-transform 0.38s ease-out;
-  transition: transform 0.38s ease-out;
+  transition: -webkit-transform 0.38s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transition: transform 0.38s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
-.action-button {
+polyfill-next-selector { content: '.sourceButton';}
+::content .sourceButton {
+  position: absolute;
   z-index: 1;
 }
 
-#drawerPanel:not([narrow]) #menuButton {
+polyfill-next-selector { content: '.sourceButton:not(.fallback)';}
+::content .sourceButton:not(.fallback) {
+  background-color: #fcfcfc;
+  color: #666464;
+  bottom: -28px;
+  right: 24px;
+}
+
+polyfill-next-selector { content: '.sourceButton.fallback';}
+::content .sourceButton.fallback {
+  right: 24px;
+  top: 13px;
+}
+
+
+polyfill-next-selector { content: '#drawerPanel[narrow] .sourceButton:not(.fallback)';}
+#drawerPanel[narrow] ::content .sourceButton:not(.fallback) {
+  right: 8px;
+}
+
+polyfill-next-selector { content: '#drawerPanel:not([narrow]) .menuButton';}
+#drawerPanel:not([narrow]) ::content .menuButton {
   display: none;
 }
 
-.toolbar-label {
+.element-label {
+  height: 80px;
+  line-height: 80px;
+  padding-left: 24px;
+  background-color: #fff;
   letter-spacing: 0.05em;
+  font-size: 24px;
+  font-weight: 400;
+  color: #5265a2;
 }
 
 #frame {
@@ -85,7 +137,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   margin: 0;
   box-shadow: none;
   position: absolute;
-  top: 0;
+  top: 0px;
   right: 0;
   bottom: 0;
   left: 0;
@@ -103,4 +155,3 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   left: 0;
   overflow: auto;
 }
-

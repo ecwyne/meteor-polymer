@@ -1,7 +1,0 @@
-{
-  "name": "google-apis",
-  "private": true,
-  "dependencies": {
-    "core-shared-lib": "Polymer/core-shared-lib#master"
-  }
-}

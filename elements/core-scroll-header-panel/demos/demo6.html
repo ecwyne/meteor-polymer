@@ -24,7 +24,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <style shim-shadowdom>
 
+    html, body {
+      height: 100%;
+    }
+
     body {
+      margin: 0;
       font-family: sans-serif;
       color: #333;
     }
@@ -52,6 +57,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       fill: #f1f1f1;
       /* custom toolbar height */
       height: 256px;
+      background-color: transparent;
     }
     
     .title {
@@ -97,7 +103,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       var d = e.detail;
       var m = d.height - d.condensedHeight;
       var scale = Math.max(0.75, (m - d.y) / (m / 0.25)  + 0.75);
-      titleStyle.webkitTransform = titleStyle.transform = 
+      titleStyle.transform = titleStyle.webkitTransform = 
           'scale(' + scale + ') translateZ(0)';
     });
   
