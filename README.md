@@ -9,6 +9,8 @@ This package adds the base functionality of Polymer. There are no elements inclu
 meteor add ecwyne:polymer-elements
 ```
 
+This will add the [ecwyne:polymer-elements](http://github.com/ecwyne/meteor-polymer-elements) package.
+
 ##How to Install
 
 ```bash
