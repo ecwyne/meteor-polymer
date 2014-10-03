@@ -19,4 +19,4 @@ _.forEach(bowerCommands, function (command) {
 
 console.log('installing polymer into public direcory...');
 var dir = path.join(path.relative(process.cwd(), process.env.PWD), 'public/bower_components');
-Bower.install(['polymer#0.4.0'], {save: true}, {directory: dir});
+Bower.install(['polymer#0.4.2'], {save: true}, {directory: dir});
