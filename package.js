@@ -1,6 +1,6 @@
 Package.describe({
 	summary: "Add Polymer Base to meteor Project",
-	version: "1.0.1",
+	version: "1.0.2",
 	git: "https://github.com/ecwyne/meteor-polymer.git",
 	name: 'ecwyne:polymer'
 });
