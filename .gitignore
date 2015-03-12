@@ -1,1 +1,4 @@
 .build*
+lib/bower_components/app.js
+lib/bower_components/files.json
+lib/bower_components/node_modules
