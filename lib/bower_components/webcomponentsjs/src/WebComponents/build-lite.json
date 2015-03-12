@@ -1,0 +1,9 @@
+[
+  "build/boot.js",
+  "../URL/URL.js",
+  "../MutationObserver/MutationObserver.js",
+  "../HTMLImports/build.json",
+  "../CustomElements/build.json",
+  "../Template/Template.js",
+  "unresolved.js"
+]
